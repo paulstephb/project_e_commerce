@@ -21,6 +21,9 @@
         {% endif %}
     </head>
     <body>
+        <a href="{{ path('app_home_page') }}">homepage</a>
+        <a href="{{ path('app_register') }}">Register</a>
+        <a href="{{ path('app_login') }}">Login</a>
         {% block body %}{% endblock %}
     </body>
 </html>

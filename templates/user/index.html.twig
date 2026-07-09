@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Users</h1>
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>First Name</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {% for role in user.roles %}
+                            {{ role }}
+                        {% endfor %}
+                    </td>
+                    <td>
+                    {% if ('ROLE_ADMIN' in user.roles) == false %}
+                        <a onclick="return confirm('Are you sure you want to set role as editor for this user?');" href="{{ path('app_user_to_editor', {'id': user.id}) }}" class="btn btn-outline-primary">Set Role as Editor</a>
+                        <a onclick="return confirm('Are you sure you want to delete this user?');" href="" class="btn btn-outline-danger">Delete</a>
+                    {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

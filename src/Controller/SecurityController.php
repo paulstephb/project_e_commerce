@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class SecurityController extends AbstractController
 {

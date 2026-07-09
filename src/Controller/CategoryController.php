@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class CategoryController extends AbstractController
 {
-    #[Route('/category', name: 'app_category')]
+    #[Route('/admin/category', name: 'app_category')]
     public function index(CategoryRepository $repo,): Response
     {
         $categories = $repo->findAll();
@@ -21,7 +21,7 @@ final class CategoryController extends AbstractController
             'categories' => $categories,
         ]);
     }
-    #[Route('/category/new', name: 'app_category_new')]
+    #[Route('/admin/category/new', name: 'app_category_new')]
     public function addcategory(EntityManagerInterface $entityManager, Request $request): Response
     {
         $category = new Category();
@@ -41,7 +41,7 @@ final class CategoryController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    #[Route('/category/{id}/update', name: 'app_category_update')]
+    #[Route('/admin/category/{id}/update', name: 'app_category_update')]
     public function updateCategory(EntityManagerInterface $entityManager, Request $request, Category $category): Response
     {
         $form = $this->createForm(CategoryFormType::class, $category);
@@ -49,18 +49,22 @@ final class CategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+
+            $this->addFlash('success', 'Category updated successfully.');
+            return $this->redirectToRoute('app_category');
         }
 
         return $this->render('category/updateCategory.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-    #[Route('/category/{id}/delete', name: 'app_category_delete')]
+    #[Route('/admin/category/{id}/delete', name: 'app_category_delete')]
     public function deleteCategory(EntityManagerInterface $entityManager, Category $category): Response
     {
         $entityManager->remove($category);
         $entityManager->flush();
 
+        $this->addFlash('danger', 'Category deleted successfully.');
         return $this->redirectToRoute('app_category');
     }
 }

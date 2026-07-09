@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UserRepository;
-use Dom\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -27,6 +26,16 @@ final class UserController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash('success', 'Editor role assigned successfully.');
+        return $this->redirectToRoute('app_user');
+    }
+
+    #[Route('/admin/user/{id}/delete', name: 'app_user_delete')]
+    public function deleteUser(EntityManagerInterface $entityManager, User $user): Response
+    {
+        $entityManager->remove($user);
+        $entityManager->flush(); 
+
+        $this->addFlash('success', 'User deleted successfully.');
         return $this->redirectToRoute('app_user');
     }
 }

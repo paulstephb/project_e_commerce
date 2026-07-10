@@ -29,6 +29,16 @@ final class UserController extends AbstractController
         return $this->redirectToRoute('app_user');
     }
 
+     #[Route('/admin/user/{id}/remove/editor/role', name: 'app_user_remove_editor_role')]
+    public function removeRoleEditor(EntityManagerInterface $entityManager, User $user): Response
+    {
+        $user->setRoles([]);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Editor role removed successfully.');
+        return $this->redirectToRoute('app_user');
+    }
+
     #[Route('/admin/user/{id}/delete', name: 'app_user_delete')]
     public function deleteUser(EntityManagerInterface $entityManager, User $user): Response
     {

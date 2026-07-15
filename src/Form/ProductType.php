@@ -17,6 +17,22 @@ class ProductType extends AbstractType
             ->add('Name')
             ->add('Description')
             ->add('Price')
+            ->add('Image', FileType::class, [
+                'label' => 'Product Image',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image file (JPEG, PNG, JPG)',
+                    ])
+                ],
+            ])
             ->add('SubCategory', EntityType::class, [
                 'class' => SubCategory::class,
                 'choice_label' => 'Name',

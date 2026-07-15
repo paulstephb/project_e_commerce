@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 use App\Entity\Product;
 use App\Entity\SubCategory;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -22,15 +24,15 @@ class ProductType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
+                    new File(
+                        maxSize: '1024k',
+                        mimeTypes: [
                             'image/jpeg',
                             'image/png',
                             'image/jpg',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid image file (JPEG, PNG, JPG)',
-                    ])
+                        mimeTypesMessage: 'Please upload a valid image file (JPEG, PNG, JPG)',
+                    )
                 ],
             ])
             ->add('SubCategory', EntityType::class, [

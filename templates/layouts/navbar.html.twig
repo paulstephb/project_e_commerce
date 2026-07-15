@@ -9,9 +9,9 @@
         <li class="nav-item active">
             <a class="nav-link" href="{{ path('app_home_page') }}">Homepage</a>
         </li>
-        <li class="nav-item">
+        {# <li class="nav-item">
             <a class="nav-link" href="{{ path('app_category') }}">Category</a>
-        </li>
+        </li> #}
         <li class="nav-item">
             <a class="nav-link" href="{{ path('app_register') }}">Register</a> 
         </li>
@@ -31,8 +31,14 @@
                 Admin
         </a>
         <ul class="dropdown-menu">
+            <a class="dropdown-item" href="{{ path('app_product_index') }}">Product</a>
+            <a class="dropdown-item" href="{{ path('app_product_new') }}">Add Product</a> 
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ path('app_category') }}">Category</a>
             <a class="dropdown-item" href="{{ path('app_category_new') }}">Add Category</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ path('app_sub_category_index') }}">SubCategory</a>
+            <a class="dropdown-item" href="{{ path('app_sub_category_new') }}">Add SubCategory</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ path('app_user') }}">Users</a>
         </ul>

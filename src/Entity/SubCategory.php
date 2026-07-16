@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Category;
 use App\Repository\SubCategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,7 +21,7 @@ class SubCategory
 
     #[ORM\ManyToOne(inversedBy: 'subCategories')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?category $category = null;
+    private ?Category $category = null;
 
     /**
      * @var Collection<int, Product>

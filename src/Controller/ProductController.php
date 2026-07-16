@@ -33,6 +33,7 @@ final class ProductController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form->get('Image')->getData();
+
             if ($image) {
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFileImagename = $slugger->slug($originalFilename);
@@ -43,15 +44,14 @@ final class ProductController extends AbstractController
                         $this->getParameter('product_images_directory'),
                         $newFileImagename
                     );
-                } catch (FileException $exception) {
-                    // Handle exception if something happens during file upload
-                }
-                $product->setImage($newFileImagename);
-                $entityManager->persist($product);
-                $entityManager->flush();
-
-                return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+                } catch (FileException $exception) {}
+                    $product->setImage($newFileImagename);
             }
+            
+            $entityManager->persist($product);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('product/new.html.twig', [
             'product' => $product,

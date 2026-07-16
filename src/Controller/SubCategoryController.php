@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use app\Entity\Category;
 use App\Entity\SubCategory;
 use App\Form\SubCategoryType;
 use App\Repository\SubCategoryRepository;

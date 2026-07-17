@@ -15,7 +15,7 @@ class Product
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $Name = null;
 
     #[ORM\Column(length: 255)]
@@ -32,6 +32,9 @@ class Product
 
     #[ORM\Column(length: 255)]
     private ?string $Image = null;
+
+    #[ORM\Column]
+    private ?int $stock = null;
 
     public function __construct()
     {
@@ -111,6 +114,18 @@ class Product
     public function setImage(string $Image): static
     {
         $this->Image = $Image;
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): static
+    {
+        $this->stock = $stock;
 
         return $this;
     }

@@ -38,7 +38,7 @@
                 <td>
                     <a class="btn btn-outline-info" href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
                     <a class="btn btn-outline-success" href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
-                    <a class="btn btn-outline-info" href="">add stock</a>
+                    <a class="btn btn-outline-info" href="{{ path('app_product_stock_add', {'id' : product.id})}}">add stock</a>
                 </td>
             </tr>
         {% else %}

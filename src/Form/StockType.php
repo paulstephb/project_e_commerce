@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\product;
+use App\Entity\Product;
 use App\Entity\Stock;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -15,13 +15,13 @@ class StockType extends AbstractType
     {
         $builder
             ->add('quantity')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('product', EntityType::class, [
-                'class' => product::class,
-                'choice_label' => 'id',
-            ])
+            // ->add('createdAt', null, [
+            //     'widget' => 'single_text',
+            // ])
+            // ->add('product', EntityType::class, [
+            //     'class' => product::class,
+            //     'choice_label' => 'id',
+            // ])
         ;
     }
 

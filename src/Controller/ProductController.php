@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Form\StockType;
 use App\Repository\ProductRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -105,5 +106,16 @@ final class ProductController extends AbstractController
         }
 
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/add/stock/{id}/',name:'app_product_stock_add', methods: ['GET','POST'])]
+    public function stockAdd($id, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $stockAdd = new Stock();
+        $form = $this -> createForm(StockType::class, $stockAdd);
+
+        return $this->render('product/addStock.html.twig',
+            ['form'=> $form->createView()]
+        );
     }
 }

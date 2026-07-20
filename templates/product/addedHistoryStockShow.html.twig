@@ -9,20 +9,17 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Name/Product Id</th>
+                <th>Id</th>
                 <th>Quantity</th>
                 <th>Date Added</th>
             </tr>
-        </thead>
-        <tbody>
+            {% for productAdded in productsAdded %}
             <tr>
-            {% for AddProductHistory in AddProductHistories %}
-                <td>{{ AddProductHistory.Id }}</td>
-                <td>{{ AddProductHistory.Quantity }}</td>
-                <td>{{ AddProductHistory.CreatedAt }}</td>
-            {% endfor %}
+                <td>{{ productAdded.id }}</td>
+                <td>{{ productAdded.quantity }}</td>
+                <td>{{ productAdded.createdAt|date('d-m-y H:i:s') }}</td>
             </tr>
-        </tbody>
+            {% endfor %}
     </table>
 </div>
 {% endblock %}

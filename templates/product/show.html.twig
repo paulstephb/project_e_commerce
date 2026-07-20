@@ -46,6 +46,9 @@
 
     <a href="{{ path('app_product_stock_add',{'id':product.id})}}">Add Stock</a>
 
+    {# TEST HISTORY #}
+    <a href="{{ path('app_product_stock_add_history', {'id': product.id}) }}">HISTORY</a>
+
     {{ include('product/_delete_form.html.twig') }}
     </div>
 {% endblock %}

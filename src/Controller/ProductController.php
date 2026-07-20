@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\AddProductHistory;
-use App\Repository\AddProductHistoryRepository;
 use App\Entity\Stock;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -11,6 +9,7 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use App\Form\StockType;
 use App\Repository\ProductRepository;
+use App\Repository\StockRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -150,12 +149,12 @@ final class ProductController extends AbstractController
     }
 
         #[Route('/add/product/{id}/stock/history',name:'app_product_stock_add_history', methods: ['GET'])]
-        public function showHistoryProductStock($id, ProductRepository $productRepository, AddProductHistory $addProductHistory, AddProductHistoryRepository $addProductHistoryRepository): Response
+        public function showHistoryProductStock($id, ProductRepository $productRepository, Stock $stock, StockRepository $stockRepository): Response
         {
             $product = $productRepository->find($id);
-            $addProductHistory = $addProductHistoryRepository->findBy(['product'=>$product],['id'=>'DESC']);
+            $stock = $stockRepository->findBy(['product'=>$product],['id'=>'DESC']);
 
-            return $this->render('product/addedHistoryStockShow.html.twig',["productsAdded"=>$addProductHistory]);
+            return $this->render('product/addedHistoryStockShow.html.twig',["productsAdded"=>$stock]);
         }
 
 }

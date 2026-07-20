@@ -42,10 +42,17 @@ class Product
     #[ORM\OneToMany(targetEntity: Stock::class, mappedBy: 'product')]
     private Collection $stocks;
 
+    /**
+     * @var Collection<int, AddProductHistory>
+     */
+    #[ORM\OneToMany(targetEntity: AddProductHistory::class, mappedBy: 'product')]
+    private Collection $addProductHistories;
+
     public function __construct()
     {
         $this->SubCategory = new ArrayCollection();
         $this->stocks = new ArrayCollection();
+        $this->addProductHistories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,6 +168,36 @@ class Product
             // set the owning side to null (unless already changed)
             if ($stock->getProduct() === $this) {
                 $stock->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AddProductHistory>
+     */
+    public function getAddProductHistories(): Collection
+    {
+        return $this->addProductHistories;
+    }
+
+    public function addAddProductHistory(AddProductHistory $addProductHistory): static
+    {
+        if (!$this->addProductHistories->contains($addProductHistory)) {
+            $this->addProductHistories->add($addProductHistory);
+            $addProductHistory->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddProductHistory(AddProductHistory $addProductHistory): static
+    {
+        if ($this->addProductHistories->removeElement($addProductHistory)) {
+            // set the owning side to null (unless already changed)
+            if ($addProductHistory->getProduct() === $this) {
+                $addProductHistory->setProduct(null);
             }
         }
 

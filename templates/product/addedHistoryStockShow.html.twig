@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stock history{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Stock history</h1>
+    {% include 'layouts/_flash_message.html.twig' %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name/Product Id</th>
+                <th>Quantity</th>
+                <th>Date Added</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            {% for AddProductHistory in AddProductHistories %}
+                <td>{{ AddProductHistory.Id }}</td>
+                <td>{{ AddProductHistory.Quantity }}</td>
+                <td>{{ AddProductHistory.CreatedAt }}</td>
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

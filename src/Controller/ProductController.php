@@ -154,7 +154,7 @@ final class ProductController extends AbstractController
             $product = $productRepository->find($id);
             $stock = $stockRepository->findBy(['product'=>$product],['id'=>'DESC']);
 
-            return $this->render('product/addedHistoryStockShow.html.twig',["productsAdded"=>$stock]);
+            return $this->render('product/addedHistoryStockShow.html.twig',["productsAdded"=>$stock , 'product' => $product,],);
         }
 
 }

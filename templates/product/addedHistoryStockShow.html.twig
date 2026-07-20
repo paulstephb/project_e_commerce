@@ -5,21 +5,22 @@
 {% block body %}
 <div class="container">
     <h1>Stock history</h1>
+    <h2>product : <span style="text-decoration: underline;">{{ product.name }}</span></h2>
     {% include 'layouts/_flash_message.html.twig' %}
     <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Quantity</th>
-                <th>Date Added</th>
-            </tr>
-            {% for productAdded in productsAdded %}
-            <tr>
-                <td>{{ productAdded.id }}</td>
-                <td>{{ productAdded.quantity }}</td>
-                <td>{{ productAdded.createdAt|date('d-m-y H:i:s') }}</td>
-            </tr>
-            {% endfor %}
-    </table>
+        <tr>
+            <th>Id</th>
+            <th>Quantity</th>
+            <th>Date Added</th>
+        </tr>
+        {% for productAdded in productsAdded %}
+        <tr>
+            <td>{{ productAdded.id }}</td>
+            <td>{{ productAdded.quantity }}</td>
+            <td>{{ productAdded.createdAt|date('d-m-y H:i:s') }}</td>
+        </tr>
+        {% endfor %}
+    </table>                
+    <a href="{{ path('app_product_index') }}" class="btn btn-secondary">back to Product list</a>
 </div>
 {% endblock %}

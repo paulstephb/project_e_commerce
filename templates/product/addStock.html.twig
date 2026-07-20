@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Stock{% endblock %}
+
+{% block body %}
+<div class='container'>
+
+<h1 class="mt-5 mb-5">Add Stock Product: <span style="text-decoration: underline;">{{ product.Name }}</span></h1>
+    {% include 'layouts/_flash_message.html.twig' %}
+{{ form_start(form) }}
+    {{ form_row(form.quantity, {'attr': {'class': 'form form-control mb-3'}}) }}
+    <input type="submit" class='btn btn-success btn-block'>
+    <a href="{{ path('app_product_index') }}">back to list</a>
+{{ form_end(form) }}
+
+</div>
+{% endblock %}

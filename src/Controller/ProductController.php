@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\AddProductHistory;
+use App\Repository\AddProductHistoryRepository;
 use App\Entity\Stock;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -12,6 +14,7 @@ use App\Repository\ProductRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\CssSelector\XPath\Extension\FunctionExtension;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -109,13 +112,50 @@ final class ProductController extends AbstractController
     }
 
     #[Route('/add/stock/{id}/',name:'app_product_stock_add', methods: ['GET','POST'])]
-    public function stockAdd($id, EntityManagerInterface $entityManager, Request $request): Response
+    public function stockAdd($id, EntityManagerInterface $entityManager,ProductRepository $productRepository, Product $product, Request $request): Response
     {
         $stockAdd = new Stock();
-        $form = $this -> createForm(StockType::class, $stockAdd);
 
-        return $this->render('product/addStock.html.twig',
-            ['form'=> $form->createView()]
-        );
+        $form = $this->createForm(StockType::class, $stockAdd);
+        $form->handleRequest($request);
+
+        $product = $productRepository->find($id);
+
+        if($form -> isSubmitted() && $form->isValid()){
+
+            if($stockAdd->getQuantity()>0){
+
+                $newQuantity = $product->getStock() + $stockAdd->getQuantity();
+                $product->setStock($newQuantity);
+
+                $stockAdd->setCreatedAt(new DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
+                $stockAdd->setProduct($product);
+
+                $entityManager->persist($stockAdd);
+                $entityManager->flush();
+
+                $this->addFlash('success', "Product stock has been updated");
+                return $this->redirectToRoute('app_product_index');
+            }else{
+                $this->addFlash('danger', "Product stock can't be below 0");
+                return $this->redirectToRoute('app_product_stock_add', ['id' => $product->getId()]);
+            }
+        }
+
+
+        return $this->render('product/addStock.html.twig',[
+            'form'=> $form->createView(),
+            'product' => $product,
+        ]);
     }
+
+        #[Route('/add/product/{id}/stock/history',name:'app_product_stock_add_history', methods: ['GET'])]
+        public function showHistoryProductStock($id, ProductRepository $productRepository, AddProductHistory $addProductHistory, AddProductHistoryRepository $addProductHistoryRepository): Response
+        {
+            $product = $productRepository->find($id);
+            $addProductHistory = $addProductHistoryRepository->findBy(['product'=>$product],['id'=>'DESC']);
+
+            return $this->render('product/addedHistoryStockShow.html.twig',["productsAdded"=>$addProductHistory]);
+        }
+
 }

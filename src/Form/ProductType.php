@@ -32,6 +32,7 @@ class ProductType extends AbstractType
                             'image/jpeg',
                             'image/png',
                             'image/jpg',
+                            'image/webp',
                         ],
                         mimeTypesMessage: 'Please upload a valid image file (JPEG, PNG, JPG)',
                     )

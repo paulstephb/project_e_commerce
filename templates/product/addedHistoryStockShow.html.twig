@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/main.css') }}">
+{% endblock %}
+
 {% block title %}Stock history{% endblock %}
 
 {% block body %}
@@ -21,6 +25,6 @@
         </tr>
         {% endfor %}
     </table>                
-    <a href="{{ path('app_product_index') }}" class="btn btn-secondary">back to Product list</a>
+    <a class="btn btn-outline-secondary" href="{{ path('app_product_index') }}">back to list</a>
 </div>
 {% endblock %}

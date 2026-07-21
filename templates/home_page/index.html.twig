@@ -1,20 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomePageController!{% endblock %}
+{% block title %}HomePage{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/paulw/OneDrive/Bureau/symfony/project_e_commerce/src/Controller/HomePageController.php</code></li>
-        <li>Your template at <code>C:/Users/paulw/OneDrive/Bureau/symfony/project_e_commerce/templates/home_page/index.html.twig</code></li>
-    </ul>
+<div>
+   {% for product in products %}
+            <tr>
+                <td>{{ product.Name }}</td>
+                <td>{{ product.Description|slice(0,100) }} ...</td>
+                <td>{{ product.Price }}</td>
+                <td>
+                {% if product.stock > 0 %}
+                    {{ product.stock }}
+                {% else %}
+                <span class="text-danger">Out of Stock</span>
+                {% endif %}
+                </td>
+                <td>
+                    {% for subCategory in product.SubCategory %}
+                        {{ subCategory.Name }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+             
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
 </div>
 {% endblock %}

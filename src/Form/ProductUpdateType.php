@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use App\Entity\Product;
@@ -12,7 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductType extends AbstractType
+class ProductUpdateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -20,8 +19,7 @@ class ProductType extends AbstractType
             ->add('Name')
             ->add('Description')
             ->add('Price')
-            ->add('stock')
-            ->add('Image', FileType::class, [
+           ->add('Image', FileType::class, [
                 'label' => 'Product Image',
                 'mapped' => false,
                 'required' => false,
@@ -33,13 +31,15 @@ class ProductType extends AbstractType
                             'image/png',
                             'image/jpg',
                         ],
+                        maxSizeMessage: 'maxsize = 1024k',
                         mimeTypesMessage: 'Please upload a valid image file (JPEG, PNG, JPG)',
                     )
                 ],
             ])
+            // ->add('stock')
             ->add('SubCategory', EntityType::class, [
                 'class' => SubCategory::class,
-                'choice_label' => 'Name',
+                'choice_label' => 'id',
                 'multiple' => true,
             ])
         ;

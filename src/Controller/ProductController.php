@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ProductUpdateType;
 use App\Entity\Stock;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -47,8 +48,7 @@ final class ProductController extends AbstractController
                 try {
                     $image->move(
                         $this->getParameter('product_images_directory'),
-                        $newFileImagename
-                    );
+                        $newFileImagename);
                 } catch (FileException $exception) {}
                     $product->setImage($newFileImagename);
             }
@@ -82,12 +82,26 @@ final class ProductController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Product $product, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductUpdateType::class, $product);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+          if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('Image')->getData();
+
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFileImagename = $slugger->slug($originalFilename);
+                $newFileImagename = $safeFileImagename . '-' . uniqid() . '.' . $image->guessExtension();
+
+                try {
+                    $image->move(
+                        $this->getParameter('product_images_directory'),
+                        $newFileImagename);
+                } catch (FileException $exception) {}
+                    $product->setImage($newFileImagename);
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);

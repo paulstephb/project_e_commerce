@@ -1,0 +1,17 @@
+.cardContainer{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5px;
+}
+
+.card {
+    margin: 10px;
+    height: 100%;
+    display: flex;
+}
+
+.card img {
+    height: 12em;
+    
+}
+

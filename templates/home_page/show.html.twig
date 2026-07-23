@@ -17,4 +17,19 @@
 
         </div>
     </div>
+    <h2 class="mt-5">Latest products</h2>
+    <div class="cardContainer">
+        {% for product in products %}
+            <div class="">
+                <div class="card">
+                    <img class="productShowImgLatest imgproduct" src="{{asset('uploads/images/'~product.Image)}}" alt="">
+                    <div class="cardBody">
+                        <a class="titleProduct" href="{{ path('app_home_product_show',{'id':product.id})}}"><h5 class="card-title titleProduct">{{ product.name }}</h5></a>
+                        <p class="card-text">{{ product.description|slice(0,60) }}...</p>
+                        <a href="#" class="btnCart btn btn-outline-success">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

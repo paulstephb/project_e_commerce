@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
+use App\Repository\SubCategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -22,13 +23,27 @@ final class HomePageController extends AbstractController
     }
 
     #[Route('/product/{id}/show',name: 'app_home_product_show', methods: ['GET'])]
-    public function showProduct(Product $product, ProductRepository $productRepository): Response
+    public function showProduct(Product $product, ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
         $lastProductsAdd = $productRepository->findBy([],['id'=>'DESC'],5);
         return $this->render('home_page/show.html.twig', [
             'product'=>$product,
+            'categories'=>$categoryRepository->findAll(),
+
             'products'=>$lastProductsAdd
             ]);
+    }
+
+    #[Route('/product/subcategory/{id}/filter',name: 'app_home_product_filter', methods: ['GET'])]
+    public function filter($id, CategoryRepository $categoryRepository,SubCategoryRepository $subCategoryRepository):Response
+    {
+        $product = $subCategoryRepository->find($id)->getProducts();
+        $subCategory = $subCategoryRepository->find($id);
+        return $this->render('home_page/filter.html.twig',[
+            'products'=>$product,
+            'subCategory'=>$subCategory,
+            'categories'=>$categoryRepository->findAll(),
+        ]);
     }
 
 }

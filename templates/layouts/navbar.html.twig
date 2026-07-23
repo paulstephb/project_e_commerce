@@ -24,11 +24,27 @@
     </ul> 
 
     {# Pour ajouter un menu déroulant, un input de recherche #}
-    
+      {%  if categories is defined %}
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Categories
+        </a>
+        <ul class="dropdown-menu">
+          {% for category in categories %}
+            <li><a class="dropdown-item text-primary" href="">{{ category.name }}</a></li>
+              {%  for subCategory in category.subCategories %}
+               <li><a class="dropdown-item" href="{{ path('app_home_product_filter',{'id':subCategory.id})}}">- {{ subCategory.name }}</a></li>
+              {% endfor %}
+            <li><hr class="dropdown-divider"></li>
+          {% endfor %}
+        </ul>
+        </li>
+
+      {% endif %}
       {% if is_granted("ROLE_ADMIN") %}
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Categories
+                Admin
         </a>
         <ul class="dropdown-menu">
             <a class="dropdown-item" href="{{ path('app_product_index') }}">Product</a>
@@ -44,7 +60,7 @@
         </ul>
         </li>
       {% endif %}
-
+   
       {# <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
       </li> #}

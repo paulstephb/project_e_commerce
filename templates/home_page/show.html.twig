@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('styles/homePage.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/main.css') }}">
+
 {% endblock %}
 
 {% block title %}Show product{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1>{{ product.name }}</h1>
+    <div class="container showContainer">
+    <img style="width: 40%;" class="productShowImg " src="{{asset('uploads/images/'~product.Image)}}" alt="">
+        <div>
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.description }}</p>    
+            <div class="cartPrice"><p class="pPrice">{{product.price}}€</p><a href="#" class="btn btn-outline-success">Add to cart</a></div>
+
+        </div>
     </div>
 {% endblock %}

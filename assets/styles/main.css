@@ -12,3 +12,57 @@
     color: black;
     margin: 1px;
 }
+
+.cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.card {
+    height: 100%;
+    display: flex;
+}
+
+.cardBody {
+    margin: 5px;
+}
+
+.btnCart {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.titleProduct {
+    text-decoration: none;
+    color: black;
+}
+
+.imgproduct {
+    height: 50%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.showContainer {
+    display: flex;
+    margin: 30px;
+}
+
+.showContainer div {
+    margin: 10px;
+}
+
+.cartPrice {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.pPrice{
+    font-size: larger;
+    font-weight: bolder;
+}

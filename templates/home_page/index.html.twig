@@ -2,7 +2,6 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/main.css') }}">
-
 {% endblock %}
 
 {% block title %}HomePage{% endblock %}
@@ -24,4 +23,5 @@
    </div>
     {% endfor %}
 </div>
+<div class="paginateStyle">{{ knp_pagination_render (products, 'layouts/pagination_templates.html.twig') }}</div>
 {% endblock %}

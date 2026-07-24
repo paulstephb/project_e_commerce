@@ -18,6 +18,7 @@
     flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
+    margin-bottom: 30px;
 }
 
 .card {
@@ -30,9 +31,9 @@
     margin: 5px;
 }
 
-.cardBody h3{
-position: absolute;
-bottom: 30px;
+.cardBody h3 {
+    position: absolute;
+    bottom: 30px;
 }
 
 .btnCart {
@@ -71,11 +72,51 @@ bottom: 30px;
     justify-content: space-between;
 }
 
-.pPrice{
+.pPrice {
     font-size: larger;
     font-weight: bolder;
 }
 
-.productShowImgLatest{
+.productShowImgLatest {
     height: 150px;
+}
+
+ul.pagination {
+    justify-self: center;
+}
+
+#pageSelectCurrent {
+    background-color: lightgrey;
+    border: rgb(0, 0, 0) solid 0px;
+    color: black;
+}
+#pageSelectCurrent {
+    background-color: rgb(238, 238, 238);
+    color: black;
+}
+
+#pageSelectElse {
+    background-color: lightgrey;
+    color: black;
+    border: 0px;
+}
+#pageSelectElse:hover {
+    background-color: rgb(238, 238, 238);
+    color: black;
+}
+
+.page-link {
+    color: black;
+    border: 0px;
+    border-radius: 5px;
+    background-color: lightgrey;
+}
+
+.page-link:hover {
+    background-color: rgb(238, 238, 238);
+    color: black;
+}
+
+.pagination {
+    gap: 15px;
 }

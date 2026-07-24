@@ -21,11 +21,10 @@ final class HomePageController extends AbstractController
         $products = $paginator->paginate(
             $data,
             $request->query->getInt('page',1),
-            8
+            6
         );
         return $this->render('home_page/index.html.twig', [
-            'controller_name' => 'HomePageController',
-            'products' => $productRepository->findAll(),
+            'products' => $products,
             'categories'=>$categoryRepository->findAll(),
         ]);
     }

@@ -1,0 +1,28 @@
+{% if pageCount > 1 %}
+  <nav aria-label="...">
+    <ul class="pagination paginatorButton">
+    {% if previous is defined %}
+      <li class="page-item">
+        <a href="{{ path(route, query|merge({(pageParameterName):previous})) }}" class="page-link">previous</a>
+      </li>
+    {% endif %}
+
+    {% for page in pagesInRange %}
+      {% if page != current %}
+        <li class="page-item active" aria-current="page">
+          <a id="pageSelectElse" class="page-link" href="{{ path(route, query|merge({(pageParameterName):page})) }}">{{ page }} </a>
+        </li>
+        {% else %}
+        <li class="page-item active" aria-current="page">
+          <a id="pageSelectCurrent" class="page-link disabled" href="{{ path(route, query|merge({(pageParameterName):page})) }}">{{ page }} </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+      {% if next is defined %}
+        <li class="page-item">
+          <a href="{{ path(route, query|merge({(pageParameterName):next})) }}" class="page-link" href="#">next</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}
